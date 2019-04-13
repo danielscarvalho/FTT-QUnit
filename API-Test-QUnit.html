@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Refactored date examples</title>
+  <title>FTT - JUnit - Teste Unitário de JavaScript e Serviços (API)</title>
  
   <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
   <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
@@ -52,6 +52,32 @@
 
   }); //QUnit.test
 
+  QUnit.test("HTML page", function( assert ) {
+       
+    assert.expect();
+    var done = assert.async();
+      
+    $.get("data/page.html", function(data) {
+          
+
+      setTimeout(function() {
+        
+          var googlePage = document.createElement( 'html' );
+          googlePage.innerHTML = data;
+          
+          var titleTag = googlePage.getElementsByTagName( 'H1' ).innerHTML;
+          
+          assert.equal('zzz', titleTag, "Wired page found!!!");
+        
+          done();
+        
+      }); //setTimeout
+
+    }); //get
+
+  }); //QUnit.test
+      
+      
   </script>
 </head>
 <body>
