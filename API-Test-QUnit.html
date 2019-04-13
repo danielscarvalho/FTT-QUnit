@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Refactored date examples</title>
+ 
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+  <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
+  <script>
+
+  var cicconePosition = null;	
+
+  function calc(a, b) {
+      return 1+Math.PI/(a*b);
+  }
+
+  QUnit.test("math basics", function( assert ) {
+    assert.equal(10, 2*5, "Mult OK!!");
+    assert.equal(100, 1000/10, "Div OK!!");
+    assert.ok(calc(10,20) < 2,"Calc OK!!");
+  });
+
+  //Reference: https://api.qunitjs.com/assert/async
+  QUnit.test("DuckDuckGo JSON API", function( assert ) {
+  
+    assert.expect( 2 );
+    var done = assert.async( 2 );
+    
+
+    $.getJSON("https://api.duckduckgo.com/?q=madonna&format=json&pretty=1", function(data) {
+
+      setTimeout(function() {
+        assert.equal(data.AbstractText.indexOf("Ciccone"), 15, "Madonna found it");
+        done();
+      }); //setTimeout
+
+    }); //getJSON
+
+    
+    $.getJSON("https://api.duckduckgo.com/?q=Sonia+Braga&format=json&pretty=1", function(data) {
+
+      setTimeout(function() {
+        assert.ok(data.AbstractText.indexOf("Golden") > 0, "Sonia Braga found it");
+        console.log(data);
+        done();
+      }); //setTimeout
+
+    }); //getJSON
+
+
+  }); //QUnit.test
+
+  </script>
+</head>
+<body>
+ 
+<div id="qunit"></div>
+ 
+</body>
+</html>
